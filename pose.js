@@ -8,15 +8,15 @@ const VERSAO_CDN = "0.10.21";
 const CDN = `https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@${VERSAO_CDN}`;
 const MODELO_REMOTO =
   "https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_full/float16/latest/pose_landmarker_full.task";
-const MODELO_LOCAL = new URL("../model/pose_landmarker_full.task", import.meta.url).href;
+const MODELO_LOCAL = new URL("./model/pose_landmarker_full.task", import.meta.url).href;
 
 let modulo = null;
 
 async function carregarMediapipe() {
   if (modulo) return modulo;
   try {
-    const m = await import("../vendor/vision_bundle.mjs");
-    modulo = { PoseLandmarker: m.PoseLandmarker, FilesetResolver: m.FilesetResolver, wasm: new URL("../vendor/wasm", import.meta.url).href, origem: "local" };
+    const m = await import("./vendor/vision_bundle.mjs");
+    modulo = { PoseLandmarker: m.PoseLandmarker, FilesetResolver: m.FilesetResolver, wasm: new URL("./vendor/wasm", import.meta.url).href, origem: "local" };
   } catch {
     const m = await import(`${CDN}/vision_bundle.mjs`);
     modulo = { PoseLandmarker: m.PoseLandmarker, FilesetResolver: m.FilesetResolver, wasm: `${CDN}/wasm`, origem: "internet" };

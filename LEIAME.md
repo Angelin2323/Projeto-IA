@@ -65,4 +65,4 @@ Dicas de filmagem: câmera parada, mesmo ângulo, corpo inteiro, só o jogador n
 - A IA mede postura e movimento do corpo, não a bola nem a raquete. “Correto” significa “parecido
   com os exemplos que você marcou como corretos”: valide seus exemplos com um treinador.
 - Se o MediaPipe mudar de versão e o download pela internet falhar, ajuste `VERSAO_CDN` em
-  `js/pose.js` (ou rode `baixar_arquivos.py`, que pega a versão mais recente).
+  `pose.js` (ou rode `baixar_arquivos.py`, que pega a versão mais recente).

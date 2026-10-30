@@ -1,10 +1,10 @@
 // Service worker do TT Coach: deixa o app funcionar sem internet depois do primeiro acesso.
 // Mude VERSAO ao publicar uma nova versão para que os aparelhos atualizem.
-const VERSAO = "ttcoach-v1";
+const VERSAO = "ttcoach-v3";
 const CASCA = [
   "./", "./index.html", "./styles.css", "./manifest.webmanifest",
-  "./js/app.js", "./js/features.js", "./js/analyzer.js", "./js/memory.js", "./js/pose.js", "./js/render.js",
-  "./icons/icon-192.png", "./icons/icon-512.png", "./icons/icon-maskable-512.png", "./icons/apple-touch-icon.png",
+  "./app.js", "./features.js", "./analyzer.js", "./memory.js", "./pose.js", "./render.js",
+  "./icon-192.png", "./icon-512.png", "./icon-maskable-512.png", "./apple-touch-icon.png",
 ];
 // Arquivos grandes do MediaPipe (vendor/, model/) e das CDNs: guardados na primeira vez e reaproveitados.
 const EXTERNOS = ["cdn.jsdelivr.net", "storage.googleapis.com"];

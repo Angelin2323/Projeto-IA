@@ -28,7 +28,8 @@ h1 { margin: 0; font-size: 1.6rem; }
 .sub { color: var(--suave); margin: 2px 0 0; }
 .topo-acoes { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .chip { font-size: .85rem; padding: 3px 10px; border-radius: 999px; background: var(--card); border: 1px solid var(--borda); color: var(--suave); }
-nav { display: flex; gap: 4px; margin: 18px 0 14px; border-bottom: 1px solid var(--borda); overflow-x: auto; }
+nav { display: flex; gap: 4px; margin: 18px 0 14px; border-bottom: 1px solid var(--borda); overflow-x: auto; overflow-y: hidden; }
+#erro-carga { position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 20; }
 nav button { background: none; border: 0; padding: 12px 14px; min-height: 44px; font: inherit; color: var(--suave); cursor: pointer; white-space: nowrap; border-bottom: 3px solid transparent; margin-bottom: -1px; }
 nav button[aria-selected="true"] { color: var(--texto); border-bottom-color: var(--marca); font-weight: 600; }
 .card { background: var(--card); border: 1px solid var(--borda); border-radius: 12px; padding: 18px; box-shadow: var(--sombra); margin-bottom: 16px; min-width: 0; }

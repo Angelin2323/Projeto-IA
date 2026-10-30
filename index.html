@@ -12,8 +12,8 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="TT Coach">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<link rel="icon" href="icons/icon-192.png" type="image/png">
-<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" href="icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -118,6 +118,7 @@
   <datalist id="lista-golpes"></datalist>
   <p class="rodape">A IA mede postura e movimento do corpo, não a bola nem a raquete. “Correto” significa “parecido com os exemplos que você marcou como corretos”. Valide seus exemplos com um treinador. Os vídeos são processados no seu aparelho e não são enviados; só as medidas do corpo ficam guardadas aqui. Envie só vídeos em que as pessoas que aparecem autorizaram o uso.</p>
 </div>
-<script type="module" src="js/app.js"></script>
+<div class="falha oculto" id="erro-carga" role="alert"></div>
+<script type="module" src="app.js" onerror="var e=document.getElementById('erro-carga');e.textContent='O app não conseguiu carregar o arquivo app.js (por isso as abas e o botão de instalar não funcionam). Provavelmente algum arquivo não foi enviado ao GitHub: confira se app.js, features.js, analyzer.js, memory.js, pose.js e render.js estão ao lado do index.html e envie de novo.';e.classList.remove('oculto')"></script>
 </body>
 </html>
