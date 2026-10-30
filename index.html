@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TT Coach</title>
+<meta name="description" content="Analise seus golpes de tênis de mesa pelo celular. O vídeo não sai do seu aparelho.">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#f5f6f8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#11151b" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="TT Coach">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="icon" href="icons/icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="pagina">
+  <header>
+    <div>
+      <h1>TT Coach</h1>
+      <p class="sub">Envie um vídeo e descubra se o golpe está certo ou errado.</p>
+    </div>
+    <div class="topo-acoes">
+      <span class="chip" id="chip-memoria">memória: 0 golpes corretos</span>
+      <button class="btn pequeno oculto" id="btn-instalar" type="button">Instalar app</button>
+    </div>
+  </header>
+  <div class="aviso oculto" id="dica-ios">Para instalar no iPhone: toque em <b>Compartilhar</b> e depois em <b>Adicionar à Tela de Início</b>.</div>
+
+  <nav role="tablist" aria-label="Seções">
+    <button type="button" role="tab" id="tab-analisar" aria-selected="true" aria-controls="aba-analisar" data-aba="analisar">Analisar</button>
+    <button type="button" role="tab" id="tab-treinar" aria-selected="false" aria-controls="aba-treinar" data-aba="treinar">Treinar a IA</button>
+    <button type="button" role="tab" id="tab-memoria" aria-selected="false" aria-controls="aba-memoria" data-aba="memoria">Memória</button>
+  </nav>
+
+  <section id="aba-analisar" role="tabpanel" aria-labelledby="tab-analisar">
+    <div class="card">
+      <h2>Analisar um vídeo</h2>
+      <p class="dica">Câmera parada, corpo inteiro, só o jogador no quadro. Vídeos de até 60 s. O vídeo é processado no seu aparelho e não é enviado a ninguém.</p>
+      <div class="solta" id="solta-analisar" tabindex="0" role="button" aria-label="Escolher um vídeo para analisar">
+        <div><strong>Toque para escolher ou gravar um vídeo</strong></div>
+        <div id="nome-analisar">ou arraste um arquivo aqui</div>
+        <input type="file" id="arq-analisar" accept="video/*" hidden>
+      </div>
+      <div class="grade">
+        <div><label for="golpe-analisar">Tipo de golpe (vazio = todos)</label>
+          <input type="text" id="golpe-analisar" list="lista-golpes" placeholder="ex.: forehand" autocomplete="off"></div>
+        <div><label for="lado-analisar">Mão que bate</label>
+          <select id="lado-analisar"><option value="direito">Direita</option><option value="esquerdo">Esquerda</option></select></div>
+        <div><label for="sens">Rigor</label>
+          <select id="sens"><option value="2.5">Normal</option><option value="2">Rigoroso</option><option value="3">Tolerante</option></select></div>
+      </div>
+      <p class="linha-botoes">
+        <button class="btn" id="btn-analisar" type="button" disabled>Analisar</button>
+        <button class="btn sec oculto" id="btn-cancelar-analisar" type="button">Cancelar</button>
+      </p>
+      <div class="barra oculto" id="barra-analisar" role="progressbar" aria-valuemin="0" aria-valuemax="100"><div></div></div>
+      <div class="estado" id="estado-analisar" aria-live="polite"></div>
+    </div>
+    <div id="resultado" aria-live="polite"></div>
+  </section>
+
+  <section id="aba-treinar" class="oculto" role="tabpanel" aria-labelledby="tab-treinar">
+    <div class="card">
+      <h2>Ensinar a IA com seus vídeos</h2>
+      <p class="dica">Envie vídeos de golpes <b>corretos</b> (pelo menos 3 golpes, de preferência bem mais). Vídeos de golpes <b>errados</b>, com o nome do erro, ensinam a IA a reconhecê-lo. Fica guardado só neste aparelho.</p>
+      <div class="solta" id="solta-treinar" tabindex="0" role="button" aria-label="Escolher vídeos para treinar">
+        <div><strong>Toque para escolher um ou vários vídeos</strong></div>
+        <div>cada vídeo pode ter vários golpes</div>
+        <input type="file" id="arq-treinar" accept="video/*" multiple hidden>
+      </div>
+      <ul class="arquivos" id="lista-treinar"></ul>
+      <div class="grade">
+        <div><span class="rotulo-campo">Esses golpes estão…</span>
+          <fieldset><label><input type="radio" name="rotulo" value="correto" checked> Corretos</label>
+                    <label><input type="radio" name="rotulo" value="errado"> Errados</label></fieldset></div>
+        <div><label for="golpe-treinar">Tipo de golpe</label>
+          <input type="text" id="golpe-treinar" list="lista-golpes" placeholder="ex.: forehand" value="forehand" autocomplete="off"></div>
+        <div><label for="lado-treinar">Mão que bate</label>
+          <select id="lado-treinar"><option value="direito">Direita</option><option value="esquerdo">Esquerda</option></select></div>
+        <div id="campo-erro" class="oculto"><label for="erro-treinar">Nome do erro (opcional)</label>
+          <input type="text" id="erro-treinar" placeholder="ex.: cotovelo alto" autocomplete="off"></div>
+      </div>
+      <p class="linha-botoes">
+        <button class="btn" id="btn-treinar" type="button" disabled>Adicionar à memória</button>
+        <button class="btn sec oculto" id="btn-cancelar-treinar" type="button">Cancelar</button>
+      </p>
+      <div class="barra oculto" id="barra-treinar" role="progressbar" aria-valuemin="0" aria-valuemax="100"><div></div></div>
+      <div class="estado" id="estado-treinar" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section id="aba-memoria" class="oculto" role="tabpanel" aria-labelledby="tab-memoria">
+    <div class="card">
+      <h2>O que a IA aprendeu</h2>
+      <div id="resumo-memoria"></div>
+    </div>
+    <div class="card">
+      <h2>Vídeos na memória</h2>
+      <div class="rolavel" id="videos-memoria"></div>
+    </div>
+    <div class="card">
+      <h2>Backup e dados</h2>
+      <p class="dica" id="texto-armazenamento"></p>
+      <p class="linha-botoes">
+        <button class="btn" id="btn-exportar" type="button">Exportar backup</button>
+        <button class="btn sec neutro" id="btn-importar" type="button">Importar backup</button>
+        <button class="btn sec" id="btn-apagar" type="button">Apagar tudo</button>
+      </p>
+      <input type="file" id="arq-importar" accept="application/json,.json" hidden>
+      <div class="estado" id="estado-memoria" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <datalist id="lista-golpes"></datalist>
+  <p class="rodape">A IA mede postura e movimento do corpo, não a bola nem a raquete. “Correto” significa “parecido com os exemplos que você marcou como corretos”. Valide seus exemplos com um treinador. Os vídeos são processados no seu aparelho e não são enviados; só as medidas do corpo ficam guardadas aqui. Envie só vídeos em que as pessoas que aparecem autorizaram o uso.</p>
+</div>
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
